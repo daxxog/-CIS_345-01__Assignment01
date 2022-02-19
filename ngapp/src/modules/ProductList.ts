@@ -1,4 +1,6 @@
-class ProductList {
+import { Product } from './Product'
+
+export class ProductList {
     private _productList: Product[]
 
     constructor(
