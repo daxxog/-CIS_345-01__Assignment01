@@ -15,8 +15,79 @@ platformBrowserDynamic().bootstrapModule(AppModule)
 
 
 function main() {
-    console.log(Product);
-    console.log(ProductList);
+    // data pulled in from the PDF assignment,
+    // formatted to JSON quick with macros
+    const _data: any = {
+        'code': [
+            100,
+            200,
+            300,
+            400,
+            500
+        ],
+
+        'name': [
+            'Cap',
+            'Jacket',
+            'Coat',
+            'Gloves',
+            'Book'
+        ],
+
+        'category': [
+            'Winter wear',
+            'Winter wear',
+            'Winter wear',
+            'Winter wear',
+            'Books'
+        ],
+
+        'price': [
+            200,
+            1000,
+            2050,
+            350,
+            150
+        ]
+    };
+
+    // convert raw _data object into our structured ProductList
+    // --------------------------------------------------------
+    // as a speedup in the form of pre-computing,
+    // we could JSON.stringify the output of this calculation
+    // and put it in the source code if we wanted to
+    const productList: ProductList = (() => {
+        // basically we need to invert the
+        // two dimensional _data structure
+        // so a list of associative arrays
+        // ( instead of an associative array of lists )
+        // a list holding any type will satisfy this
+        const _anyList: any[] = [];
+
+        // iterate over the associative array
+        for (const property in _data) {
+            // with each value (list) in the associative array,
+            // iterate over each value in the list
+            _data[property].forEach( (v: any, i: number) => {
+                // if we haven't created an associative array for
+                // this index yet, go ahead and create it
+                if (typeof _anyList[i] === 'undefined') {
+                    _anyList[i] = {};
+                }
+
+                // assign the value to the key of the
+                // associative array at the current index
+                _anyList[i][property] = v;
+            });
+        }
+
+        // convert _anyList to ProductList object using map
+        return new ProductList(
+            _anyList.map(
+                v => new Product(v)
+            )
+        );
+    })();
 }
 
 main();

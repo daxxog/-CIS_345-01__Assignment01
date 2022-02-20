@@ -1,3 +1,10 @@
+interface ProductParams {
+    code: string;
+    name: string;
+    category: string;
+    price: number;
+}
+
 export class Product {
     private _code: string;
     private _name: string;
@@ -5,15 +12,12 @@ export class Product {
     private _price: number;
 
     constructor(
-        code: string,
-        name: string,
-        category: string,
-        price: number
+        params: ProductParams
     ) {
-        this._code = code;
-        this._name = name;
-        this._category = category;
-        this._price = price;
+        this._code = params.code;
+        this._name = params.name;
+        this._category = params.category;
+        this._price = params.price;
     }
 
     get code(): string {
