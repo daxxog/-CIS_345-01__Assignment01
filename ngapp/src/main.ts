@@ -88,6 +88,22 @@ function main() {
             )
         );
     })();
+
+
+    // tests
+    console.log(productList.getProductByCode(200));
+    console.log(productList.getProductsBycategory('Winter wear'));
+
+    const newProduct = new Product({
+        code: '1337', // kinda weird that the lab has code be a string here . . .
+        price: 1234,
+        category: 'Winter wear',
+        name: 'Snow suit'
+    });
+
+    productList.addProduct(newProduct);
+    console.log(productList.productList);
+    console.log(productList.getProductByCode(1337)); // . . . but a number down here
 }
 
 main();
